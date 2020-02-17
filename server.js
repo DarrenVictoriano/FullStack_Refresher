@@ -1,13 +1,11 @@
 // Initialize Express
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 // Initialize DB and Routes here
 const mongoose = require("mongoose");
-//const routes = require("./routes");
 
-// Middlewares
+// Middlewares to parse data passed to the server
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -17,11 +15,19 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Routes
-//app.use(routes);
+const routes = require("./routes/api/items");
+app.use("/api/items", routes);
 
+// MongoDB Confi g
+let MONGODB_URI = process.env.MONGODB_URI || require('./config/keys').MONGO_URI;
 // Connect MongoDB
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/fsrdb";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+    .then(() => console.log("MongoDB connected"))
+    .catch(err => console.log(err));
+
+
+// Server PORT
+const PORT = process.env.PORT || 5000;
 
 // Start the server
 app.listen(PORT, function () {

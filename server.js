@@ -1,11 +1,12 @@
 // Initialize Express
 const express = require("express");
 const app = express();
+const config = require('config');
 
-// Initialize DB and Routes here
+// Initialize DB and config
 const mongoose = require("mongoose");
 
-// Middlewares to parse data passed to the server
+// Bodyparser Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -15,13 +16,19 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Routes
-const routes = require("./routes/api/items");
-app.use("/api/items", routes);
+app.use("/api/items", require("./routes/api/items"));
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
 
-// MongoDB Confi g
-let MONGODB_URI = process.env.MONGODB_URI || require('./config/keys').MONGO_URI;
+// MongoDB Confi still prefer dotenv
+let db = process.env.MONGODB_URI || config.get("MONGO_URI");
+
 // Connect MongoDB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
 

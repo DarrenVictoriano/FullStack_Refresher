@@ -6,8 +6,8 @@ import { Container } from 'reactstrap';
 
 // Redux
 import { Provider } from 'react-redux';
-import store from './store';
-import { loadUser } from './actions/authActions';
+import store from './flux/store';
+import { loadUser } from './flux/actions/authActions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';

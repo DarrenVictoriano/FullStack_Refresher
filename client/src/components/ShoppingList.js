@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../actions/itemActions';
+import { getItems, deleteItem } from '../flux/actions/itemActions';
 import PropTypes from 'prop-types';
 
 class ShoppingList extends Component {
@@ -50,7 +50,7 @@ class ShoppingList extends Component {
 
 const mapStateToProps = (state) => ({
     item: state.item,
-    isAuthenticated: state.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);

@@ -17,6 +17,7 @@ export const loadUser = () => (dispatch, getState) => {
     // user loading
     dispatch({ type: USER_LOADING });
 
+    // this is the router.get("/user") - routes/api/auth.js
     axios.get('/api/auth/user', tokenConfig(getState))
         .then(res => dispatch({
             type: USER_LOADED,

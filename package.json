@@ -27,7 +27,7 @@
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
     "concurrently": "^5.1.0",
-    "config": "^3.3.0",
+    "config": "^3.3.8",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
